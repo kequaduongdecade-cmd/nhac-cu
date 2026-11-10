@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thế Giới Nhạc Cụ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #1a1a2e;
+      --secondary: #16213e;
+      --accent: #e94560;
+      --gold: #f5a623;
+      --teal: #0f9b8e;
+      --purple: #7b2d8b;
+      --light: #f0f4f8;
+      --white: #ffffff;
+      --text-muted: #8a9bb0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--primary);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER / HERO ===== */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3e 40%, #0a2a3a 100%);
+      z-index: 0;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(233,69,96,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(15,155,142,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 60% 80%, rgba(123,45,139,0.1) 0%, transparent 50%);
+    }
+
+    /* Floating musical notes */
+    .notes-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .note {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0;
+      animation: floatNote 8s ease-in-out infinite;
+      color: rgba(245, 166, 35, 0.4);
+    }
+
+    .note:nth-child(1)  { left: 5%;  top: 20%; animation-delay: 0s;    font-size: 1.5rem; }
+    .note:nth-child(2)  { left: 15%; top: 70%; animation-delay: 1.2s;  font-size: 2.5rem; }
+    .note:nth-child(3)  { left: 25%; top: 10%; animation-delay: 2.4s;  font-size: 1.8rem; }
+    .note:nth-child(4)  { left: 40%; top: 85%; animation-delay: 0.8s;  font-size: 2rem;   }
+    .note:nth-child(5)  { left: 55%; top: 15%; animation-delay: 3.6s;  font-size: 1.3rem; }
+    .note:nth-child(6)  { left: 70%; top: 60%; animation-delay: 1.8s;  font-size: 2.2rem; }
+    .note:nth-child(7)  { left: 80%; top: 30%; animation-delay: 4.0s;  font-size: 1.6rem; }
+    .note:nth-child(8)  { left: 90%; top: 75%; animation-delay: 2.0s;  font-size: 2rem;   }
+    .note:nth-child(9)  { left: 50%; top: 50%; animation-delay: 5.0s;  font-size: 1.4rem; }
+    .note:nth-child(10) { left: 35%; top: 40%; animation-delay: 3.0s;  font-size: 1.9rem; }
+
+    @keyframes floatNote {
+      0%   { opacity: 0;    transform: translateY(0)     rotate(0deg);   }
+      20%  { opacity: 0.6;  }
+      80%  { opacity: 0.3;  }
+      100% { opacity: 0;    transform: translateY(-120px) rotate(30deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(233,69,96,0.2);
+      border: 1px solid rgba(233,69,96,0.5);
+      color: var(--accent);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #c0392b);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 20px rgba(233,69,96,0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(233,69,96,0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-3px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(13,13,26,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0.8rem 2rem;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    /* ===== FILTER TABS ===== */
+    .filter-section {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+    }
+
+    .filter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .filter-title span {
+      color: var(--gold);
+    }
+
+    .filter-desc {
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .filter-tab {
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-tab.active,
+    .filter-tab:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245,166,35,0.1);
+    }
+
+    /* ===== CARDS GRID ===== */
+    .instruments-section {
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,255,255,0.2);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .card.hidden {
+      display: none;
+    }
+
+    .card-image-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .card-emoji {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover .card-emoji {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    .card-bg-gradient {
+      position: absolute;
+      inset: 0;
+    }
+
+    .card-category-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .card-origin {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card-desc {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-tag {
+      padding: 0.2rem 0.7rem;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.6);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .card-difficulty {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .dots {
+      display: flex;
+      gap: 3px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .dot.filled {
+      background: var(--gold);
+    }
+
+    .card-learn-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .card-learn-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: linear-gradient(145deg, #1e1e3a, #12122a);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.open .modal {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      position: relative;
+      padding: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .modal-emoji {
+      font-size: 4rem;
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .modal-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .modal-body {
+      padding: 2rem 2.5rem 2.5rem;
+    }
+
+    .modal-section {
+      margin-bottom: 1.8rem;
+    }
+
+    .modal-section-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .modal-text {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .modal-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .modal-fact {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .modal-fact-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-fact-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .modal-famous {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .modal-famous-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.6rem 1rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .modal-famous-item::before {
+      content: '♪';
+      color: var(--gold);
+    }
+
+    /* ===== STATS ===== */
+    .stats-section {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, rgba(15,155,142,0.08), rgba(123,45,139,0.08));
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      margin-top: 4rem;
+    }
+
+    .stats-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    /* ===== CATEGORIES SECTION ===== */
+    .categories-section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title span { color: var(--gold); }
+
+    .section-desc {
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    .cat-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .cat-card {
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .cat-card:hover::before { opacity: 1; }
+    .cat-card:hover { transform: translateY(-6px); }
+
+    .cat-card.string   { background: rgba(233,69,96,0.08);  border-color: rgba(233,69,96,0.3); }
+    .cat-card.wind     { background: rgba(15,155,142,0.08); border-color: rgba(15,155,142,0.3); }
+    .cat-card.keyboard { background: rgba(245,166,35,0.08); border-color: rgba(245,166,35,0.3); }
+    .cat-card.percussion { background: rgba(123,45,139,0.08); border-color: rgba(123,45,139,0.3); }
+    .cat-card.electronic { background: rgba(52,152,219,0.08); border-color: rgba(52,152,219,0.3); }
+
+    .cat-card:hover.string   { box-shadow: 0 15px 40px rgba(233,69,96,0.25); }
+    .cat-card:hover.wind     { box-shadow: 0 15px 40px rgba(15,155,142,0.25); }
+    .cat-card:hover.keyboard { box-shadow: 0 15px 40px rgba(245,166,35,0.25); }
+    .cat-card:hover.percussion { box-shadow: 0 15px 40px rgba(123,45,139,0.25); }
+    .cat-card:hover.electronic { box-shadow: 0 15px 40px rgba(52,152,219,0.25); }
+
+    .cat-emoji { font-size: 3rem; margin-bottom: 1rem; display: block; }
+    .cat-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .cat-count { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-muted);
+    }
+
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    footer p { font-size: 0.85rem; line-height: 1.8; }
+
+    footer .footer-notes {
+      font-size: 1.5rem;
+      letter-spacing: 0.5rem;
+      margin-top: 1.5rem;
+      opacity: 0.4;
+    }
+
+    /* ===== SEARCH ===== */
+    .search-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 420px;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus { border-color: var(--gold); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .modal-facts { grid-template-columns: 1fr; }
+      .modal-header { flex-direction: column; text-align: center; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">🎵 NhạcCụ.vn</a>
+  <ul class="nav-links">
+    <li><a href="#instruments">Nhạc Cụ</a></li>
+    <li><a href="#categories">Phân Loại</a></li>
+    <li><a href="#stats">Thống Kê</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="hero-bg"></div>
+  <div class="notes-container">
+    <div class="note">♩</div>
+    <div class="note">♪</div>
+    <div class="note">♫</div>
+    <div class="note">♬</div>
+    <div class="note">🎵</div>
+    <div class="note">♩</div>
+    <div class="note">♪</div>
+    <div class="note">♫</div>
+    <div class="note">♬</div>
+    <div class="note">🎶</div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">✨ Khám phá âm nhạc thế giới</div>
+    <h1 class="hero-title">
+      Thế Giới<br/><span>Nhạc Cụ</span>
+    </h1>
+    <p class="hero-subtitle">
+      Hành trình khám phá những nhạc cụ phổ biến nhất trên thế giới —
+      từ dây đàn rung lên tiếng tơ cho đến những nốt nhạc điện tử huyền ảo.
+    </p>
+    <div class="hero-cta">
+      <a href="#instruments" class="btn btn-primary">🎸 Khám Phá Ngay</a>
+      <a href="#categories" class="btn btn-outline">📖 Phân Loại</a>
+    </div>
+  </div>
+  <div class="hero-scroll">▼ CUỘN XUỐNG</div>
+</header>
+
+<!-- FILTER + SEARCH -->
+<section id="instruments" class="filter-section">
+  <h2 class="filter-title">Các Loại <span>Nhạc Cụ</span></h2>
+  <p class="filter-desc">Khám phá bộ sưu tập nhạc cụ đa dạng từ khắp nơi trên thế giới</p>
+
+  <div class="search-wrap">
+    <input type="text" class="search-input" id="searchInput" placeholder="🔍  Tìm kiếm nhạc cụ...">
+  </div>
+
+  <div class="filter-tabs">
+    <button class="filter-tab active" data-filter="all">🌍 Tất Cả</button>
+    <button class="filter-tab" data-filter="string">🎸 Dây</button>
+    <button class="filter-tab" data-filter="wind">🎷 Hơi</button>
+    <button class="filter-tab" data-filter="keyboard">🎹 Phím</button>
+    <button class="filter-tab" data-filter="percussion">🥁 Gõ</button>
+    <button class="filter-tab" data-filter="electronic">🎛️ Điện Tử</button>
+  </div>
+</section>
+
+<!-- CARDS -->
+<section class="instruments-section">
+  <div class="cards-grid" id="cardsGrid">
+
+    <!-- Guitar -->
+    <div class="card" data-category="string" data-name="Guitar" onclick="openModal('guitar')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #2d1b4e, #c0392b);"></div>
+        <div class="card-emoji">🎸</div>
+        <span class="card-category-badge" style="background:rgba(233,69,96,0.3); color:#ff8fa0;">Dây</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Guitar</div>
+        <div class="card-origin">🌍 Tây Ban Nha · Thế kỷ 15</div>
+        <div class="card-desc">Nhạc cụ dây phổ biến nhất thế giới với âm thanh ấm áp, linh hoạt trong mọi thể loại âm nhạc từ rock đến classical.</div>
+        <div class="card-tags">
+          <span class="card-tag">Rock</span>
+          <span class="card-tag">Pop</span>
+          <span class="card-tag">Classical</span>
+          <span class="card-tag">Folk</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Piano -->
+    <div class="card" data-category="keyboard" data-name="Piano" onclick="openModal('piano')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #1a1a2e, #0f9b8e);"></div>
+        <div class="card-emoji">🎹</div>
+        <span class="card-category-badge" style="background:rgba(15,155,142,0.3); color:#5ff5e8;">Phím</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Piano</div>
+        <div class="card-origin">🇮🇹 Ý · Thế kỷ 18</div>
+        <div class="card-desc">Vua của các loại nhạc cụ, Piano có dải âm rộng lớn và khả năng diễn tấu solo hoặc hòa tấu tuyệt vời.</div>
+        <div class="card-tags">
+          <span class="card-tag">Classical</span>
+          <span class="card-tag">Jazz</span>
+          <span class="card-tag">Pop</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Violin -->
+    <div class="card" data-category="string" data-name="Violin" onclick="openModal('violin')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #2c1810, #8b4513);"></div>
+        <div class="card-emoji">🎻</div>
+        <span class="card-category-badge" style="background:rgba(233,69,96,0.3); color:#ff8fa0;">Dây</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Violin</div>
+        <div class="card-origin">🇮🇹 Ý · Thế kỷ 16</div>
+        <div class="card-desc">Nữ hoàng của dàn nhạc giao hưởng với âm thanh ngọt ngào, da diết có khả năng biểu đạt cảm xúc sâu sắc nhất.</div>
+        <div class="card-tags">
+          <span class="card-tag">Classical</span>
+          <span class="card-tag">Giao hưởng</span>
+          <span class="card-tag">Folk</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trống / Drum -->
+    <div class="card" data-category="percussion" data-name="Trống" onclick="openModal('drums')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #1a0a2e, #7b2d8b);"></div>
+        <div class="card-emoji">🥁</div>
+        <span class="card-category-badge" style="background:rgba(123,45,139,0.4); color:#d49bde;">Gõ</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Trống (Drum)</div>
+        <div class="card-origin">🌍 Toàn thế giới · Thời tiền sử</div>
+        <div class="card-desc">Nhịp tim của âm nhạc. Bộ trống hiện đại là xương sống của mọi ban nhạc, từ jazz đến heavy metal.</div>
+        <div class="card-tags">
+          <span class="card-tag">Rock</span>
+          <span class="card-tag">Jazz</span>
+          <span class="card-tag">Pop</span>
+          <span class="card-tag">Metal</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saxophone -->
+    <div class="card" data-category="wind" data-name="Saxophone" onclick="openModal('saxophone')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #0a2a1a, #0f9b8e);"></div>
+        <div class="card-emoji">🎷</div>
+        <span class="card-category-badge" style="background:rgba(15,155,142,0.3); color:#5ff5e8;">Hơi</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Saxophone</div>
+        <div class="card-origin">🇧🇪 Bỉ · Thế kỷ 19</div>
+        <div class="card-desc">Linh hồn của nhạc Jazz. Saxophone tạo ra những âm thanh ấm nồng, quyến rũ không thể lẫn với bất kỳ nhạc cụ nào khác.</div>
+        <div class="card-tags">
+          <span class="card-tag">Jazz</span>
+          <span class="card-tag">Blues</span>
+          <span class="card-tag">Classical</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trumpet -->
+    <div class="card" data-category="wind" data-name="Kèn Trumpet" onclick="openModal('trumpet')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #2a1a00, #d4870a);"></div>
+        <div class="card-emoji">🎺</div>
+        <span class="card-category-badge" style="background:rgba(15,155,142,0.3); color:#5ff5e8;">Hơi</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Kèn Trumpet</div>
+        <div class="card-origin">🌍 Ai Cập cổ đại · 1500 TCN</div>
+        <div class="card-desc">Nhạc cụ hơi mang tính biểu tượng nhất, từ các cuộc chiến đến sân khấu jazz lừng danh của Mỹ.</div>
+        <div class="card-tags">
+          <span class="card-tag">Jazz</span>
+          <span class="card-tag">Classical</span>
+          <span class="card-tag">Giao hưởng</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flute -->
+    <div class="card" data-category="wind" data-name="Sáo Flute" onclick="openModal('flute')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #0a1a2e, #3498db);"></div>
+        <div class="card-emoji">🪈</div>
+        <span class="card-category-badge" style="background:rgba(15,155,142,0.3); color:#5ff5e8;">Hơi</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Sáo Flute</div>
+        <div class="card-origin">🌏 Trung Quốc · 7000 TCN</div>
+        <div class="card-desc">Một trong những nhạc cụ lâu đời nhất, tiếng sáo trong trẻo như suối chảy, gợi lên hình ảnh thiên nhiên hữu tình.</div>
+        <div class="card-tags">
+          <span class="card-tag">Classical</span>
+          <span class="card-tag">Folk</span>
+          <span class="card-tag">Giao hưởng</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bass Guitar -->
+    <div class="card" data-category="string" data-name="Guitar Bass" onclick="openModal('bass')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #0d1f0d, #1a7a1a);"></div>
+        <div class="card-emoji">🎸</div>
+        <span class="card-category-badge" style="background:rgba(233,69,96,0.3); color:#ff8fa0;">Dây</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Guitar Bass</div>
+        <div class="card-origin">🇺🇸 Mỹ · Thập niên 1950</div>
+        <div class="card-desc">Nền tảng âm trầm của mọi ban nhạc. Bass kết nối nhịp trống và giai điệu, tạo ra cảm giác rung lắc ngây ngất.</div>
+        <div class="card-tags">
+          <span class="card-tag">Rock</span>
+          <span class="card-tag">Funk</span>
+          <span class="card-tag">Jazz</span>
+          <span class="card-tag">R&B</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ukulele -->
+    <div class="card" data-category="string" data-name="Ukulele" onclick="openModal('ukulele')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #2a1500, #e67e22);"></div>
+        <div class="card-emoji">🪕</div>
+        <span class="card-category-badge" style="background:rgba(233,69,96,0.3); color:#ff8fa0;">Dây</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Ukulele</div>
+        <div class="card-origin">🌺 Hawaii · Thế kỷ 19</div>
+        <div class="card-desc">Nhạc cụ nhỏ xinh với âm thanh vui tươi, nhẹ nhàng. Ukulele là lựa chọn hoàn hảo cho người mới bắt đầu học nhạc.</div>
+        <div class="card-tags">
+          <span class="card-tag">Folk</span>
+          <span class="card-tag">Pop</span>
+          <span class="card-tag">Hawaiian</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Đàn Tranh -->
+    <div class="card" data-category="string" data-name="Đàn Tranh" onclick="openModal('dantranh')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #1a0a00, #c0392b);"></div>
+        <div class="card-emoji">🪗</div>
+        <span class="card-category-badge" style="background:rgba(233,69,96,0.3); color:#ff8fa0;">Dây</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Đàn Tranh</div>
+        <div class="card-origin">🇻🇳 Việt Nam · Thế kỷ 13</div>
+        <div class="card-desc">Nhạc cụ dân tộc đặc trưng của Việt Nam với 16–21 dây, tạo ra âm thanh thanh thoát, réo rắt như tiếng suối ngàn.</div>
+        <div class="card-tags">
+          <span class="card-tag">Dân gian VN</span>
+          <span class="card-tag">Cổ điển</span>
+          <span class="card-tag">Dân tộc</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Synthesizer -->
+    <div class="card" data-category="electronic" data-name="Synthesizer" onclick="openModal('synth')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #000a1a, #0066ff);"></div>
+        <div class="card-emoji">🎛️</div>
+        <span class="card-category-badge" style="background:rgba(52,152,219,0.3); color:#82c8f5;">Điện Tử</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Synthesizer</div>
+        <div class="card-origin">🇺🇸 Mỹ · Thập niên 1960</div>
+        <div class="card-desc">Nhạc cụ điện tử cách mạng hóa âm nhạc hiện đại. Synth có thể tạo ra hàng nghìn âm thanh độc đáo chưa từng tồn tại trong tự nhiên.</div>
+        <div class="card-tags">
+          <span class="card-tag">Electronic</span>
+          <span class="card-tag">EDM</span>
+          <span class="card-tag">Pop</span>
+          <span class="card-tag">Ambient</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Đàn Bầu -->
+    <div class="card" data-category="string" data-name="Đàn Bầu" onclick="openModal('danbau')">
+      <div class="card-image-wrap">
+        <div class="card-bg-gradient" style="background: linear-gradient(135deg, #0a1a0a, #27ae60);"></div>
+        <div class="card-emoji">🎵</div>
+        <span class="card-category-badge" style="background:rgba(233,69,96,0.3); color:#ff8fa0;">Dây</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Đàn Bầu</div>
+        <div class="card-origin">🇻🇳 Việt Nam · Thế kỷ 10</div>
+        <div class="card-desc">Nhạc cụ độc đáo chỉ có ở Việt Nam với một dây duy nhất nhưng tạo ra âm thanh mang hồn dân tộc, da diết và sâu lắng.</div>
+        <div class="card-tags">
+          <span class="card-tag">Dân gian VN</span>
+          <span class="card-tag">Độc tấu</span>
+          <span class="card-tag">Dân tộc</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-difficulty">
+            <span>Độ khó:</span>
+            <div class="dots">
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+            </div>
+          </div>
+          <span class="card-learn-btn">Tìm hiểu →</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories" class="categories-section">
+  <h2 class="section-title">Phân Loại <span>Theo Nhóm</span></h2>
+  <p class="section-desc">Nhạc cụ được phân chia thành các nhóm chính theo cách tạo ra âm thanh</p>
+  <div class="cat-cards">
+    <div class="cat-card string" onclick="filterByCategory('string')">
+      <span class="cat-emoji">🎸</span>
+      <div class="cat-name">Nhạc Cụ Dây</div>
+      <div class="cat-count">Guitar, Violin, Đàn Tranh...</div>
+    </div>
+    <div class="cat-card wind" onclick="filterByCategory('wind')">
+      <span class="cat-emoji">🎷</span>
+      <div class="cat-name">Nhạc Cụ Hơi</div>
+      <div class="cat-count">Saxophone, Trumpet, Sáo...</div>
+    </div>
+    <div class="cat-card keyboard" onclick="filterByCategory('keyboard')">
+      <span class="cat-emoji">🎹</span>
+      <div class="cat-name">Nhạc Cụ Phím</div>
+      <div class="cat-count">Piano, Organ, Accordion...</div>
+    </div>
+    <div class="cat-card percussion" onclick="filterByCategory('percussion')">
+      <span class="cat-emoji">🥁</span>
+      <div class="cat-name">Nhạc Cụ Gõ</div>
+      <div class="cat-count">Trống, Xylophone, Marimba...</div>
+    </div>
+    <div class="cat-card electronic" onclick="filterByCategory('electronic')">
+      <span class="cat-emoji">🎛️</span>
+      <div class="cat-name">Nhạc Cụ Điện Tử</div>
+      <div class="cat-count">Synthesizer, DJ Controller...</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="stats-section">
+  <div class="stats-grid">
+    <div>
+      <div class="stat-number">1500+</div>
+      <div class="stat-label">🎵 Loại nhạc cụ trên thế giới</div>
+    </div>
+    <div>
+      <div class="stat-number">5</div>
+      <div class="stat-label">📂 Nhóm nhạc cụ chính</div>
+    </div>
+    <div>
+      <div class="stat-number">30K+</div>
+      <div class="stat-label">📅 Năm lịch sử âm nhạc</div>
+    </div>
+    <div>
+      <div class="stat-number">195</div>
+      <div class="stat-label">🌍 Quốc gia có nhạc cụ riêng</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🎵 NhạcCụ.vn</div>
+  <p>Hành trình khám phá âm nhạc thế giới qua từng sợi dây, từng nốt nhạc.<br/>Âm nhạc là ngôn ngữ chung của nhân loại.</p>
+  <div class="footer-notes">♩ ♪ ♫ ♬ ♩ ♪ ♫</div>
+  <p style="margin-top:1rem; font-size:0.75rem; opacity:0.4;">© 2026 NhạcCụ.vn — Tất cả quyền được bảo lưu</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-emoji" id="modalEmoji"></div>
+      <div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-subtitle" id="modalSubtitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Giới Thiệu</div>
+        <div class="modal-text" id="modalDesc"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Thông Tin Chi Tiết</div>
+        <div class="modal-facts" id="modalFacts"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Nghệ Sĩ Nổi Tiếng</div>
+        <div class="modal-famous" id="modalFamous"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== NAV SCROLL =====
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ===== INSTRUMENT DATA =====
+  const instruments = {
+    guitar: {
+      emoji: '🎸', name: 'Guitar', subtitle: 'Nhạc cụ dây phổ biến nhất thế giới',
+      desc: `Guitar ra đời tại Tây Ban Nha vào thế kỷ 15, phát triển từ cây đàn lute của người Ả Rập. Ngày nay, có hai loại chính: Guitar acoustic (thùng gỗ cộng hưởng âm thanh tự nhiên) và Guitar điện (sử dụng pickup điện từ). Guitar là nhạc cụ được sở hữu nhiều nhất trên thế giới với ước tính hơn 50 triệu người chơi.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🇪🇸 Tây Ban Nha' },
+        { label: 'Ra đời', value: 'Thế kỷ 15' },
+        { label: 'Số dây', value: '6 dây (thường)' },
+        { label: 'Nhóm', value: 'Chordophone' }
+      ],
+      famous: ['Jimi Hendrix — Rock huyền thoại', 'Eric Clapton — Blues master', 'Paco de Lucía — Flamenco king', 'John Mayer — Pop/Blues hiện đại']
+    },
+    piano: {
+      emoji: '🎹', name: 'Piano', subtitle: 'Vua của các nhạc cụ',
+      desc: `Piano được phát minh bởi Bartolomeo Cristofori tại Ý vào khoảng năm 1700. Tên đầy đủ là "pianoforte" (ý nghĩa: nhẹ-mạnh), vì nó có thể chơi ở nhiều cường độ khác nhau. Piano có 88 phím, bao phủ dải âm rộng nhất trong các nhạc cụ truyền thống, từ âm trầm sâu thẳm đến âm cao trong trẻo.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🇮🇹 Ý' },
+        { label: 'Ra đời', value: '~1700' },
+        { label: 'Số phím', value: '88 phím' },
+        { label: 'Nhóm', value: 'Chordophone / Idiophone' }
+      ],
+      famous: ['Ludwig van Beethoven — Nhạc cổ điển', 'Frédéric Chopin — Nhạc lãng mạn', 'Elton John — Pop/Rock', 'Lang Lang — Classical hiện đại']
+    },
+    violin: {
+      emoji: '🎻', name: 'Violin', subtitle: 'Nữ hoàng của dàn giao hưởng',
+      desc: `Violin phát triển ở Ý vào đầu thế kỷ 16, do những nghệ nhân ở Cremona như Stradivari chế tạo. Violin hiện đại có 4 dây và sử dụng vĩ cung (bow) làm từ lông ngựa để tạo âm thanh. Những cây đàn Stradivarius của thế kỷ 17-18 được đánh giá là những nhạc cụ hoàn hảo nhất từ trước đến nay, có giá trị hàng triệu đô la.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🇮🇹 Cremona, Ý' },
+        { label: 'Ra đời', value: 'Đầu thế kỷ 16' },
+        { label: 'Số dây', value: '4 dây' },
+        { label: 'Nhóm', value: 'Chordophone (cọ dây)' }
+      ],
+      famous: ['Niccolò Paganini — Huyền thoại classical', 'Itzhak Perlman —巨匠 hiện đại', 'Hilary Hahn — Nghệ sĩ đương đại', 'David Garrett — Cross-over artist']
+    },
+    drums: {
+      emoji: '🥁', name: 'Trống (Drum Set)', subtitle: 'Nhịp tim của âm nhạc',
+      desc: `Bộ trống hiện đại (drum set) phát triển vào đầu thế kỷ 20 ở Mỹ, khi nhạc Jazz nổi lên. Trước đó, trống đã tồn tại hàng nghìn năm ở mọi nền văn hóa. Một bộ trống tiêu chuẩn gồm: snare drum, bass drum, hi-hat, và nhiều cymbal. Người chơi trống (drummer) là người giữ nhịp cho cả ban nhạc.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🌍 Toàn thế giới' },
+        { label: 'Ra đời', value: 'Thời tiền sử' },
+        { label: 'Bộ cơ bản', value: '5 piece kit' },
+        { label: 'Nhóm', value: 'Membranophone' }
+      ],
+      famous: ['John Bonham — Led Zeppelin', 'Keith Moon — The Who', 'Neil Peart — Rush', 'Dave Grohl — Nirvana / Foo Fighters']
+    },
+    saxophone: {
+      emoji: '🎷', name: 'Saxophone', subtitle: 'Linh hồn của nhạc Jazz',
+      desc: `Saxophone được phát minh bởi Adolphe Sax người Bỉ vào năm 1840. Đây là nhạc cụ hiếm hoi được đặt theo tên người phát minh. Mặc dù có vẻ ngoài bằng đồng như nhạc cụ hơi đồng, saxophone thực chất dùng miệng thổi qua reed (lưỡi gà bằng sậy), nên được xếp vào nhóm nhạc cụ hơi gỗ.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🇧🇪 Bỉ' },
+        { label: 'Ra đời', value: '1840' },
+        { label: 'Chất liệu', value: 'Đồng + Reed gỗ' },
+        { label: 'Nhóm', value: 'Woodwind' }
+      ],
+      famous: ['Charlie Parker — Bebop jazz', 'John Coltrane — Modal jazz', 'Kenny G — Contemporary jazz', 'Sonny Rollins — Hard bop']
+    },
+    trumpet: {
+      emoji: '🎺', name: 'Kèn Trumpet', subtitle: 'Tiếng vang vọng của lịch sử',
+      desc: `Kèn trumpet có lịch sử hơn 3000 năm, từ những chiếc kèn bằng vỏ ốc, sừng thú đến kèn bạc của Ai Cập cổ đại. Kèn hiện đại với van (valve) phát triển vào thế kỷ 19. Trumpet tạo ra âm thanh sáng, mạnh mẽ bằng cách rung môi vào mouthpiece đồng thau.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🏛️ Ai Cập cổ đại' },
+        { label: 'Ra đời', value: '~1500 TCN' },
+        { label: 'Số van', value: '3 van piston' },
+        { label: 'Nhóm', value: 'Brass / Aerophone' }
+      ],
+      famous: ['Louis Armstrong — Jazz pioneer', 'Miles Davis — Kind of Blue', 'Dizzy Gillespie — Bebop', 'Chet Baker — Cool jazz']
+    },
+    flute: {
+      emoji: '🪈', name: 'Sáo Flute', subtitle: 'Tiếng nhạc của thiên nhiên',
+      desc: `Sáo là một trong những nhạc cụ lâu đời nhất của loài người. Chiếc sáo xương đại bàng được tìm thấy ở Slovenia có niên đại 50.000 năm. Sáo ngang (flute) hiện đại bằng bạc/vàng được phát triển bởi Theobald Böhm vào thế kỷ 19. Âm thanh tạo ra bằng cách thổi ngang qua lỗ hổng ở đầu.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🌏 Toàn thế giới' },
+        { label: 'Ra đời', value: '~7000 TCN (Trung Quốc)' },
+        { label: 'Chất liệu', value: 'Bạc, vàng, gỗ' },
+        { label: 'Nhóm', value: 'Woodwind / Aerophone' }
+      ],
+      famous: ['Jean-Pierre Rampal — Classical', 'James Galway — "Golden Flute"', 'Ian Anderson — Jethro Tull / Rock', 'Hubert Laws — Jazz flute']
+    },
+    bass: {
+      emoji: '🎸', name: 'Guitar Bass', subtitle: 'Nền tảng âm trầm',
+      desc: `Guitar bass điện được phát minh bởi Leo Fender năm 1951, tạo ra cuộc cách mạng âm nhạc. Trước đó, bass viol hoặc double bass được dùng. Bass guitar thường có 4 dây (E, A, D, G) và phát âm thanh thấp hơn guitar thường một quãng tám, cung cấp nền tảng harmonique và nhịp điệu cho ban nhạc.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🇺🇸 Mỹ (Leo Fender)' },
+        { label: 'Ra đời', value: '1951' },
+        { label: 'Số dây', value: '4 dây (cơ bản)' },
+        { label: 'Nhóm', value: 'Chordophone (điện)' }
+      ],
+      famous: ['Flea — Red Hot Chili Peppers', 'John Paul Jones — Led Zeppelin', 'Victor Wooten — Solo bass', 'Marcus Miller — Jazz/Funk']
+    },
+    ukulele: {
+      emoji: '🪕', name: 'Ukulele', subtitle: 'Tiếng nhạc của đảo Hawaii',
+      desc: `Ukulele xuất phát từ bồ đào nha khi các di dân Madeira mang theo cây đàn braguinha đến Hawaii vào năm 1879. Người Hawaii rất yêu thích và phát triển nó thành ukulele (nghĩa là "bọ chét nhảy" trong tiếng Hawaii). Ukulele có 4 dây nylon, kích thước nhỏ gọn và rất dễ học — lý tưởng cho người mới bắt đầu.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🌺 Hawaii (gốc Bồ Đào Nha)' },
+        { label: 'Ra đời', value: '1879' },
+        { label: 'Số dây', value: '4 dây' },
+        { label: 'Nhóm', value: 'Chordophone' }
+      ],
+      famous: ['Israel Kamakawiwoʻole — Over the Rainbow', 'Jake Shimabukuro — Virtuoso ukulele', 'Grace VanderWaal — AGT winner', 'Train — Hey Soul Sister']
+    },
+    dantranh: {
+      emoji: '🪗', name: 'Đàn Tranh', subtitle: 'Tiếng nhạc hồn Việt',
+      desc: `Đàn Tranh (hay Đàn Thập Lục) là nhạc cụ dây truyền thống của người Việt, có nguồn gốc từ cây Guzheng của Trung Quốc nhưng đã được Việt hóa qua nhiều thế kỷ. Đàn có 16-21 dây bằng thép hoặc tơ căng trên hộp cộng hưởng hình thang. Âm thanh trong trẻo, réo rắt, thường xuất hiện trong nhạc dân gian, nhạc cổ điển và nhạc lễ Việt Nam.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🇻🇳 Việt Nam' },
+        { label: 'Ra đời', value: 'Thế kỷ 13-14' },
+        { label: 'Số dây', value: '16–21 dây' },
+        { label: 'Nhóm', value: 'Chordophone (gảy dây)' }
+      ],
+      famous: ['Nghệ sĩ Hải Phượng — Đàn Tranh VN', 'Thúy Loan — Đàn Tranh cổ điển', 'Phương Thanh (đàn tranh)', 'Dàn nhạc dân tộc VN']
+    },
+    synth: {
+      emoji: '🎛️', name: 'Synthesizer', subtitle: 'Tương lai của âm nhạc',
+      desc: `Synthesizer (Synth) là nhạc cụ điện tử tạo ra âm thanh bằng cách tổng hợp sóng âm điện tử. Moog Synthesizer của Robert Moog (1964) là bước ngoặt lịch sử. Synth có thể mô phỏng bất kỳ nhạc cụ nào hoặc tạo ra âm thanh hoàn toàn mới. Từ nhạc pop đến EDM, synth là xương sống của âm nhạc hiện đại.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🇺🇸 Mỹ (Robert Moog)' },
+        { label: 'Ra đời', value: '1964' },
+        { label: 'Loại âm', value: 'Vô hạn (digital/analog)' },
+        { label: 'Nhóm', value: 'Electrophone' }
+      ],
+      famous: ['Kraftwerk — Electronic pioneers', 'Jean-Michel Jarre — Oxygène', 'Daft Punk — Discovery', 'Vangelis — Blade Runner OST']
+    },
+    danbau: {
+      emoji: '🎵', name: 'Đàn Bầu', subtitle: 'Tiếng nhạc một dây đặc biệt',
+      desc: `Đàn Bầu là nhạc cụ độc đáo chỉ có ở Việt Nam, dùng một sợi dây duy nhất. Người chơi dùng que gảy vào dây đồng thời điều chỉnh cần đàn (bầu) để tạo ra âm thanh biến đổi kỳ diệu — từ thủ thỉ như tiếng thì thầm đến cao vút như tiếng khóc. Đàn Bầu được ví là "tiếng khóc của người mẹ" trong dân gian Việt Nam.`,
+      facts: [
+        { label: 'Xuất xứ', value: '🇻🇳 Việt Nam' },
+        { label: 'Ra đời', value: 'Thế kỷ 10-12' },
+        { label: 'Số dây', value: '1 dây duy nhất' },
+        { label: 'Nhóm', value: 'Chordophone (đặc biệt)' }
+      ],
+      famous: ['Nghệ sĩ Đức Nhuận', 'Nghệ nhân nhân dân Thanh Tâm', 'Dàn Nhạc Dân Tộc Việt Nam', 'Nghệ sĩ Minh Tiến']
+    }
+  };
+
+  // ===== MODAL =====
+  function openModal(id) {
+    const data = instruments[id];
+    if (!data) return;
+    document.getElementById('modalEmoji').textContent = data.emoji;
+    document.getElementById('modalTitle').textContent = data.name;
+    document.getElementById('modalSubtitle').textContent = data.subtitle;
+    document.getElementById('modalDesc').textContent = data.desc;
+
+    const factsHtml = data.facts.map(f =>
+      `<div class="modal-fact"><div class="modal-fact-label">${f.label}</div><div class="modal-fact-value">${f.value}</div></div>`
+    ).join('');
+    document.getElementById('modalFacts').innerHTML = factsHtml;
+
+    const famousHtml = data.famous.map(f =>
+      `<div class="modal-famous-item">${f}</div>`
+    ).join('');
+    document.getElementById('modalFamous').innerHTML = famousHtml;
+
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnOverlay(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ===== FILTER =====
+  let currentFilter = 'all';
+  let currentSearch = '';
+
+  function applyFilter() {
+    const cards = document.querySelectorAll('#cardsGrid .card');
+    cards.forEach(card => {
+      const catMatch = currentFilter === 'all' || card.dataset.category === currentFilter;
+      const searchMatch = !currentSearch || card.dataset.name.toLowerCase().includes(currentSearch);
+      card.classList.toggle('hidden', !(catMatch && searchMatch));
+    });
+  }
+
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentFilter = tab.dataset.filter;
+      applyFilter();
+      document.getElementById('instruments').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  document.getElementById('searchInput').addEventListener('input', e => {
+    currentSearch = e.target.value.toLowerCase().trim();
+    applyFilter();
+  });
+
+  function filterByCategory(cat) {
+    currentFilter = cat;
+    document.querySelectorAll('.filter-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.filter === cat);
+    });
+    applyFilter();
+    document.getElementById('instruments').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ===== CARD HOVER SOUND EFFECT (visual) =====
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = 'rgba(245,166,35,0.3)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = 'rgba(255,255,255,0.08)';
+    });
+  });
+</script>
+</body>
+</html>
